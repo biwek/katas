@@ -1,4 +1,5 @@
-
+# Roman Numeral to Numbers 
+## Comments are in the bottom of the file
 
 def roman_to_num(roman)
 	roman_arr = [{:roman => "I", :num => 1}, 
@@ -9,39 +10,35 @@ def roman_to_num(roman)
 		 	{:roman => "D", :num => 500},
 		 	{:roman => "M", :num => 1000}]
 
-	return 4 if roman == "IV"
-	return 9 if roman == "IX"
-	return 40 if roman == "XL"
-	return 44 if roman == "XLIV"
-	return 49 if roman == "XLIX"
+	r_a = roman.split("")
 
-	if roman.include?("IX")
-		r_as = roman.split("IX").join.split("")
-	elsif roman.include?("IV")
-		r_as = roman.split("IV").join.split("")
-	else 
-		r_as = roman.split("XL").join.split("")
-	end
-		
-	r_as.map! do |r|
-		roman_arr.map do |x|
-			if x[:roman] == r 
-				x[:num]
+	r_a.map! do |x| 
+		roman_arr.map do |r|
+			if x == r[:roman]
+				r[:num]
 			end
 		end
 	end
 
-	if roman.include?("IV")
-		return (r_as.flatten.compact.inject(&:+) + 4)
-	elsif roman.include?("IX")
-		return (r_as.flatten.compact.inject(&:+) + 9)
-	elsif roman.include?("XL")
-		return (r_as.flatten.compact.inject(&:+) + 40)
-		
-	else 
-		return r_as.flatten.compact.inject(&:+)
-	end
+	v_a = r_a.flatten.compact
 
+	narr = [v_a[0]]
+	i = 1
+	while i < v_a.length
+		if v_a[i] > v_a[i-1]
+			narr << v_a[i] - v_a[i-1] - v_a[i-1]	# Comment: 1
+		else 
+			narr << v_a[i]
+		end
+		i += 1 
+	end
+	return narr.inject(&:+)
 end
+
+
+# Comment: 1
+## subtracting the current value twice as the previous value 
+## is already pushed into the array during the loop, hence it 
+## will have to be deleted again.
 
 

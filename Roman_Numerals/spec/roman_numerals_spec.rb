@@ -38,6 +38,10 @@ describe "Roman Numerals To Numbers" do
 		expect(roman_to_num("XLI")).to eq(41)
 	end
 
+	it "XLIX should return 49" do 
+		expect(roman_to_num("XLIX")).to eq(49)
+	end
+
 	it "MDCCC should return 1800" do 
 		expect(roman_to_num("MDCCC")).to eq(1800)
 	end
